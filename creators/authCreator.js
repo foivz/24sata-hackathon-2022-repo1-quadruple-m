@@ -19,7 +19,7 @@ module.exports = api => {
     const {invalidLink} = require("../utils/errorUtils")
 
     api.get("/bosko/auth", (req, res, next) => {
-        api.mongo.db("fax").collection("token").findOne({token: req.headers.authorization}).then((doc, err) => {
+        api.mongo.db("bosko").collection("token").findOne({token: req.headers.authorization}).then((doc, err) => {
             if (doc) {
                 api.mongo.db("fax").collection("user").findOne({email: doc.email}).then((user, err) => {
                     res.status(200).json({
@@ -36,11 +36,11 @@ module.exports = api => {
 
     api.post("/bosko/login", (req, res, next) => {
         const {email} = req.body
-        api.mongo.db("fax").collection("user").findOne({email}).then((usr, err) => {
+        api.mongo.db("bosko").collection("user").findOne({email}).then((usr, err) => {
             if (!usr) return res.status(200).json({isValid: false})
 
             const token = generateToken(email)
-            api.mongo.db("fax").collection("token").insertOne({email, token})
+            api.mongo.db("bosko").collection("token").insertOne({email, token})
 
             const {hash, salt} = usr
             const pass = req.headers.authorization
@@ -52,7 +52,7 @@ module.exports = api => {
 
     api.post("/bosko/detokenize", (req, res, next) => {
         const {token} = req.body
-        api.mongo.db("fax").collection("token").deleteOne({token}).then((tkn, err) => {
+        api.mongo.db("bosko").collection("token").deleteOne({token}).then((tkn, err) => {
             if (!tkn) return res.status(200).json({isValid: false})
 
             res.status(200).json("Token delete")
@@ -61,7 +61,7 @@ module.exports = api => {
 
     api.post("/bosko/register", (req, res, next) => {
         const {email, firstName, lastName, pass} = req.body
-        api.mongo.db("fax").collection("user").findOne({email}).then((usr, doc) => {
+        api.mongo.db("bosko").collection("user").findOne({email}).then((usr, doc) => {
             if (!usr) {
 
                 if (!validateEmail(email)) {
