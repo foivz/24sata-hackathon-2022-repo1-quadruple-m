@@ -105,16 +105,6 @@ function init() {
 }
 init()
 
-const spotifyFetch = require("./utils/spotifyFetch")
-setInterval(() => spotifyFetch(api), 30 * 1000)
 
-// try {
-//     https.createServer({
-//         key: fs.readFileSync("/etc/letsencrypt/live/api.misobarisic.com/privkey.pem"),
-//         cert: fs.readFileSync("/etc/letsencrypt/live/api.misobarisic.com/fullchain.pem")
-//     }, api).listen(5252)
-// } catch (e) {
-//
-// }
 
-http.createServer(api).listen(5254)
+http.createServer(api).listen(5001)

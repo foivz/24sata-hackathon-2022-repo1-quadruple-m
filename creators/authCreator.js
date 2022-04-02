@@ -100,4 +100,3 @@ module.exports = api => {
     })
 }
 
-mongo.db("db").collection("collection").find()
