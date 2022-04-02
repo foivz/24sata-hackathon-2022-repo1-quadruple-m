@@ -1,2 +1,4 @@
 node_modules
 .idea
+creators/.vs/ProjectSettings.json
+creators/.vs/slnx.sqlite
