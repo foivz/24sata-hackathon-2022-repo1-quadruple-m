@@ -10,8 +10,8 @@ function generateToken(input) {
 }
 
 function minimalUser(user) {
-    const {firstName,lastName,email,imageUrl,hasUni} = user
-    return {firstName,lastName,email,imageUrl,hasUni}
+    const {firstName,lastName,email,hasUni} = user
+    return {firstName,lastName,email,hasUni}
 }
 
 module.exports = api => {
